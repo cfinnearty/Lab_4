@@ -51,7 +51,7 @@ void loop() {
     }
   }
 
-	
+  
   //Direction Determination
   if (btn1state == LOW){                           //Button 1 Not Pressed => Forwards
     //Serial.println("Forwards");
@@ -62,20 +62,31 @@ void loop() {
     MotorSpeed(myspeed, speedpos, backwards);
   }
 
-  delay(100);	//Bounce
+  delay(10); //Bounce
 }
 
 void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
 
-  
   if(myspeed[speedpos] == off){                 //Turn Motor Off
     Serial.println("Off");
+    analogWrite(servo, 0);
   }
   else if(myspeed[speedpos] == half){          //Turn Motor On - Half Speed
-    Serial.println("Half");
+    //Serial.println("Half");
+    if (mydirection == forwards){              //Forwards - Half Speed
+      Serial.println("Forwards Half Speed");
+    }
+    else if(mydirection == backwards){        //Backwards - Half Speed
+      Serial.println("Backwards Half Speed");
+    }
   }
-  else if(myspeed[speedpos] == full){         //Turn Motor On - Full Speed
-    Serial.println("Full");
+  else if(myspeed[speedpos] == full){          //Turn Motor On - Full Speed
+    //Serial.println("Full");
+    if (mydirection == forwards){
+      Serial.println("Forwards Full Speed");  //Forwards - Full Speed
+    }
+    else if (mydirection == backwards){
+      Serial.println("Backwards Full Speed"); //Backwards - Full Speed
+    } 
   }
-  
 }
