@@ -1,0 +1,50 @@
+
+#define btn 8
+
+#define off 0
+#define mid 1
+#define high 2
+
+void setup() {
+  Serial.begin(9600);
+  //myservo.attach(servo); //Attach to Pin 9
+  
+  pinMode(btn, OUTPUT);
+}
+
+void loop() {
+  static int myspeed[] = {off, mid, high};    //Speed Array
+  static int speedpos = 0;                    //Sets where in speed array
+  /*
+  int potent = analogRead(servo);                    //reads potentiometer
+  int scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
+  */
+
+  int btnstate = digitalRead(btn);
+
+  //Speed Array
+  if(btnstate == HIGH){
+    if (speedpos < 2){
+     speedpos = speedpos +1;
+     Serial.print("Shift: "); 
+     Serial.println(speedpos);
+    }
+    else if (speedpos = 2){
+      speedpos = 0;
+      Serial.print("Reset: ");
+      Serial.println(speedpos);
+    }
+  }
+
+  if(myspeed[speedpos] == off){
+    Serial.println("Off");
+  }
+  else if(myspeed[speedpos] == mid){
+    Serial.println("Mid");
+  }
+  else if(myspeed[speedpos] == high){
+    Serial.println("High");
+  }
+
+  delay(150);
+}
