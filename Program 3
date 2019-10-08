@@ -1,0 +1,41 @@
+#include <Servo.h>  //Library
+#define servo 9
+Servo myservo;     //Servo Setup
+
+#define btn 8
+
+void setup() {
+  Serial.begin(9600);
+  //myservo.attach(servo); //Attach to Pin 9
+
+  pinMode(btn, OUTPUT);
+}
+
+void loop() {
+  /*
+  int potent = analogRead(servo);                    //reads potentiometer
+  int scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
+  */
+  int btnstate = digitalRead(btn);
+  static int lastbtnstate;
+
+  if (btnstate != lastbtnstate){
+    Serial.println("Delay");
+    lastbtnstate = btnstate;
+    //delay(100);
+  }
+  else if(btnstate == LOW){
+    Serial.println("Forwards");
+    //myservo.write(scalepotent);                  //Sends position to servo
+    lastbtnstate = btnstate;
+    
+  }
+  else if(btnstate == HIGH){
+    Serial.println("Backwards");
+    /*
+    scalepotent = -1 * scalepotent;
+    myservo.write(scalepotent);
+    */
+    lastbtnstate = btnstate;  
+  }
+}
