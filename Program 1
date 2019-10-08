@@ -2,7 +2,7 @@
 
 #define servo 9
 
-Servo myservo      //Servo Setup
+Servo myservo;     //Servo Setup
 
 void setup() {
   Serial.begin(9600);
@@ -12,8 +12,8 @@ void setup() {
 
 void loop() {
   
-  potent = analogRead(servo)                    //reads potentiometer
-  scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
+  int potent = analogRead(servo);                    //reads potentiometer
+  int scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
 
   myservo.write(scalepotent);                  //Sends position to servo
   delay(10);                                   //Gives time for servo to get to position
