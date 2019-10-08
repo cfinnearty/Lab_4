@@ -1,4 +1,4 @@
-#include <Servo.h>
+##include <Servo.h>
 Servo myservo;
 #define servo 9
 
@@ -50,7 +50,6 @@ void loop() {
       //Serial.println(speedpos);
     }
   }
-
   
   //Direction Determination
   if (btn1state == LOW){                           //Button 1 Not Pressed => Forwards
@@ -69,24 +68,28 @@ void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
 
   if(myspeed[speedpos] == off){                 //Turn Motor Off
     Serial.println("Off");
-    analogWrite(servo, 0);
+    //analogWrite(servo, 0);
   }
   else if(myspeed[speedpos] == half){          //Turn Motor On - Half Speed
     //Serial.println("Half");
     if (mydirection == forwards){              //Forwards - Half Speed
       Serial.println("Forwards Half Speed");
+      //analogWrite(servo, 127);
     }
     else if(mydirection == backwards){        //Backwards - Half Speed
       Serial.println("Backwards Half Speed");
+      //analogWrite(servo, -127);
     }
   }
   else if(myspeed[speedpos] == full){          //Turn Motor On - Full Speed
     //Serial.println("Full");
     if (mydirection == forwards){
       Serial.println("Forwards Full Speed");  //Forwards - Full Speed
+      //analogWrite(servo, 255);
     }
     else if (mydirection == backwards){
       Serial.println("Backwards Full Speed"); //Backwards - Full Speed
-    } 
+      //analogWrite(servo, -255);
+    }
   }
 }
