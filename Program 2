@@ -9,8 +9,8 @@ Servo myservo;
 #define half 2
 #define full 3
 
-#define forwards 5
-#define backwards 6
+#define forwards 1
+#define backwards 2
 
 
 
@@ -19,26 +19,63 @@ void setup() {
  
   //myservo.attach(servo); //Attach servo to pin 9
 
-  pinMode(btn1, INPUT);
-  pinMode(btn2, INPUT);
+  pinMode(btn1, OUTPUT);
+  pinMode(btn2, OUTPUT);
+
+  Serial.println("Set-up");
 }
 
 void loop() {
-  static int speeds[] = {off, half, full}; //Speed array
-  static int mydirection = 0; //Direction set = zero
-
-  btn1state = digitalRead(btn1);
-  btn2state = digitalRead(btn2);
+  static int myspeed[] = {off, half, full, half};      //Speed array
+  static int speedpos = 0;                                  //Sets where in speed array
+  
+  int btn1state = digitalRead(btn1);            //Direction Button
+  int btn2state = digitalRead(btn2);            //Speed Button
   /*
   potent = analogRead(servo)                    //reads potentiometer
   scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
   */
 
-  if(btn1state == HIGH){
-    mydirection = forwards;
+  //Speed Array Shift
+  if (btn2state == HIGH){               //Button 2 Pressed
+    Serial.print("Shift:");
+    if (speedpos < 3){                  //Position is w/in speed array
+      speedpos = speedpos +1;
+      //Serial.println("Up");
+      //Serial.println(speedpos);
+    }
+    else if (speedpos >= 3){            //Position reset
+      speedpos = 0;
+      //Serial.println("Reset");
+      //Serial.println(speedpos);
+    }
   }
-  else if(btn2state == HIGH){
-    mydirection = backwards;
+
+	
+  //Direction Determination
+  if (btn1state == LOW){                           //Button 1 Not Pressed => Forwards
+    //Serial.println("Forwards");
+    MotorSpeed(myspeed, speedpos, forwards);
+  }
+  else if (btn1state == HIGH){                    //Button 1 Pressed => Backwards
+    //Serial.println("Backwards"); 
+    MotorSpeed(myspeed, speedpos, backwards);
+  }
+
+  delay(100);	//Bounce
+}
+
+void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
+
+  
+  if(myspeed[speedpos] == off){                 //Turn Motor Off
+    Serial.println("Off");
+  }
+  else if(myspeed[speedpos] == half){          //Turn Motor On - Half Speed
+    Serial.println("Half");
+  }
+  else if(myspeed[speedpos] == full){         //Turn Motor On - Full Speed
+    Serial.println("Full");
   }
   
 }
