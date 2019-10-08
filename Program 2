@@ -61,7 +61,7 @@ void loop() {
     MotorSpeed(myspeed, speedpos, backwards);
   }
 
-  delay(100); //Bounce
+  delay(150); //Bounce
 }
 
 void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
