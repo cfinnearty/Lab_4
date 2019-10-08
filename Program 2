@@ -1,0 +1,44 @@
+#include <Servo.h>
+Servo myservo;
+#define servo 9
+
+#define btn1 8
+#define btn2 6
+
+#define off 1
+#define half 2
+#define full 3
+
+#define forwards 5
+#define backwards 6
+
+
+
+void setup() {
+  Serial.begin(9600);
+ 
+  //myservo.attach(servo); //Attach servo to pin 9
+
+  pinMode(btn1, INPUT);
+  pinMode(btn2, INPUT);
+}
+
+void loop() {
+  static int speeds[] = {off, half, full}; //Speed array
+  static int mydirection = 0; //Direction set = zero
+
+  btn1state = digitalRead(btn1);
+  btn2state = digitalRead(btn2);
+  /*
+  potent = analogRead(servo)                    //reads potentiometer
+  scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
+  */
+
+  if(btn1state == HIGH){
+    mydirection = forwards;
+  }
+  else if(btn2state == HIGH){
+    mydirection = backwards;
+  }
+  
+}
