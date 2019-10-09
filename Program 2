@@ -1,9 +1,9 @@
-##include <Servo.h>
+#include <Servo.h>
 Servo myservo;
 #define servo 9
 
-#define btn1 8
-#define btn2 6
+#define btn1 8 //Button one pin 8
+#define btn2 6 //Button two pin 6
 
 #define off 1
 #define half 2
@@ -41,24 +41,24 @@ void loop() {
     Serial.print("Shift:");
     if (speedpos < 3){                  //Position is w/in speed array
       speedpos = speedpos +1;
-      //Serial.println("Up");
-      //Serial.println(speedpos);
+      //Serial.println("Up");          //Debug: Shows the shift in speed
+      //Serial.println(speedpos);      //Shows shift through speeds
     }
     else if (speedpos >= 3){            //Position reset
       speedpos = 0;
-      //Serial.println("Reset");
-      //Serial.println(speedpos);
+      //Serial.println("Reset");        //Debug: Shows the Speed reset
+      //Serial.println(speedpos);       
     }
   }
   
   //Direction Determination
   if (btn1state == LOW){                           //Button 1 Not Pressed => Forwards
-    //Serial.println("Forwards");
-    MotorSpeed(myspeed, speedpos, forwards);
+    //Serial.println("Forwards");                  //Debug: Forward Motion is occurring
+    MotorSpeed(myspeed, speedpos, forwards);       //at the correct time
   }
   else if (btn1state == HIGH){                    //Button 1 Pressed => Backwards
-    //Serial.println("Backwards"); 
-    MotorSpeed(myspeed, speedpos, backwards);
+    //Serial.println("Backwards");                //Debug: Backwards Motion is occurring
+    MotorSpeed(myspeed, speedpos, backwards);     //at the correct time
   }
 
   delay(150); //Bounce
@@ -67,28 +67,28 @@ void loop() {
 void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
 
   if(myspeed[speedpos] == off){                 //Turn Motor Off
-    Serial.println("Off");
+    Serial.println("Off");                      //Debug: Motor Off is occurring
     //analogWrite(servo, 0);
   }
   else if(myspeed[speedpos] == half){          //Turn Motor On - Half Speed
-    //Serial.println("Half");
+                   
     if (mydirection == forwards){              //Forwards - Half Speed
-      Serial.println("Forwards Half Speed");
+      Serial.println("Forwards Half Speed");   //Debug: Motor at half speed forwards is occurring
       //analogWrite(servo, 127);
     }
     else if(mydirection == backwards){        //Backwards - Half Speed
-      Serial.println("Backwards Half Speed");
+      Serial.println("Backwards Half Speed"); //Debug: Motor at half speed backwards is occurring
       //analogWrite(servo, -127);
     }
   }
   else if(myspeed[speedpos] == full){          //Turn Motor On - Full Speed
-    //Serial.println("Full");
-    if (mydirection == forwards){
-      Serial.println("Forwards Full Speed");  //Forwards - Full Speed
+    
+    if (mydirection == forwards){             //Forwards - Full Speed
+      Serial.println("Forwards Full Speed");  //Debug: Motor at half speed backwards is occurring
       //analogWrite(servo, 255);
     }
-    else if (mydirection == backwards){
-      Serial.println("Backwards Full Speed"); //Backwards - Full Speed
+    else if (mydirection == backwards){           //Backwards - Full Speed
+      Serial.println("Backwards Full Speed");     //Debug: Motor at half speed backwards is occurring
       //analogWrite(servo, -255);
     }
   }
