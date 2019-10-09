@@ -19,7 +19,7 @@ void loop() {
   int btnstate = digitalRead(btn);
   static int lastbtnstate;
 
-  if (btnstate != lastbtnstate){
+  if (btnstate != lastbtnstate){              //
     Serial.println("Delay");
     lastbtnstate = btnstate;
     //delay(100);
