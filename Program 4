@@ -1,5 +1,5 @@
 
-#define btn 8
+#define btn 8 //Button Pin 8
 
 #define off 0
 #define mid 1
@@ -13,7 +13,7 @@ void setup() {
 }
 
 void loop() {
-  static int myspeed[] = {off, mid, high};    //Speed Array
+  static int myspeed[] = {off, mid, high};    //Speed State Array
   static int speedpos = 0;                    //Sets where in speed array
   /*
   int potent = analogRead(servo);                    //reads potentiometer
@@ -24,27 +24,27 @@ void loop() {
 
   //Speed Array
   if(btnstate == HIGH){
-    if (speedpos < 2){
+    if (speedpos < 2){                       //Shifts to next state
      speedpos = speedpos +1;
-     Serial.print("Shift: "); 
-     Serial.println(speedpos);
+     Serial.print("Shift: ");               //Debug: Shows what current Speed should be
+     Serial.println(myspeed[speedpos]);     //Shows to shift through speeds
     }
-    else if (speedpos = 2){
+    else if (speedpos = 2){                 //Resets to the start of the state array
       speedpos = 0;
-      Serial.print("Reset: ");
-      Serial.println(speedpos);
+      Serial.print("Reset: ");             //Debug: Shows the Speed reset
+      Serial.println(myspeed[speedpos]);
     }
   }
 
-  if(myspeed[speedpos] == off){
-    Serial.println("Off");
+  if(myspeed[speedpos] == off){           //Turns motor off
+    Serial.println("Off");                //Debug: Shows that the motor should turn off
   }
-  else if(myspeed[speedpos] == mid){
-    Serial.println("Mid");
+  else if(myspeed[speedpos] == mid){     //Sets motor to half speed
+    Serial.println("Mid");              //Debug: Shows that the motor should be half speed
   }
-  else if(myspeed[speedpos] == high){
-    Serial.println("High");
+  else if(myspeed[speedpos] == high){   //Sets motor to full speed
+    Serial.println("High");             //Debug: Shows that the motor should be full speed
   }
 
-  delay(150);
+  delay(150); //Covers for possible bounce
 }
