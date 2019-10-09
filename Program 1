@@ -1,21 +1,20 @@
-#include <Servo.h>  //Library
+#include <Servo.h>
+Servo myservo;
+#define poten A1
 
-#define servo 9
-
-Servo myservo;     //Servo Setup
-
-void setup() {
+void setup()
+{
   Serial.begin(9600);
-  //myservo.attach(servo); //Attach to Pin 9
-  
+  Serial.println("Test Program begining");
+  myservo.attach(9);
 }
-
-void loop() {
-  
-  int potent = analogRead(servo);                    //reads potentiometer
-  int scalepotent = map(potent, 0, 1023, 0, 180);   //scale servo to motor (0-180)
-
-  myservo.write(scalepotent);                  //Sends position to servo
-  delay(10);                                   //Gives time for servo to get to position
+void loop()
+{
+  int potent = analogRead(poten);                      //reads potentiometer
+  //Serial.println(potent);
+  int scalepotent = map(potent, 0, 1023, 0, 180);      //scale servo to motor (-90 - +90)
+  Serial.println(scalepotent);
+  myservo.write(scalepotent);
+  delay(10);                                         //Gives time for servo to get to position
 
 }
