@@ -1,9 +1,9 @@
-#include <Servo.h>
-Servo myservo;
+//#include <Servo.h>
+//Servo myservo;
 #define servo 9
 
 #define btn1 8 //Button one pin 8
-#define btn2 6 //Button two pin 6
+#define btn2 4 //Button two pin 4
 
 #define off 1
 #define half 2
@@ -68,28 +68,28 @@ void MotorSpeed(int myspeed[], int speedpos, int mydirection ){
 
   if(myspeed[speedpos] == off){                 //Turn Motor Off
     Serial.println("Off");                      //Debug: Motor Off is occurring
-    //analogWrite(servo, 0);
+    analogWrite(servo, 0);
   }
   else if(myspeed[speedpos] == half){          //Turn Motor On - Half Speed
                    
     if (mydirection == forwards){              //Forwards - Half Speed
       Serial.println("Forwards Half Speed");   //Debug: Motor at half speed forwards is occurring
-      //analogWrite(servo, 127);
+      analogWrite(servo, 200);
     }
     else if(mydirection == backwards){        //Backwards - Half Speed
       Serial.println("Backwards Half Speed"); //Debug: Motor at half speed backwards is occurring
-      //analogWrite(servo, -127);
+      analogWrite(servo, -200);
     }
   }
   else if(myspeed[speedpos] == full){          //Turn Motor On - Full Speed
     
     if (mydirection == forwards){             //Forwards - Full Speed
       Serial.println("Forwards Full Speed");  //Debug: Motor at half speed backwards is occurring
-      //analogWrite(servo, 255);
+      analogWrite(servo, 250);
     }
     else if (mydirection == backwards){           //Backwards - Full Speed
       Serial.println("Backwards Full Speed");     //Debug: Motor at half speed backwards is occurring
-      //analogWrite(servo, -255);
+      analogWrite(servo, -250);
     }
   }
 }
